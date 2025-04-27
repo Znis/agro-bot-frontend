@@ -11,7 +11,7 @@ const GRID_CONFIG = {
 const generateGridData = (rows, columns) => {
   const plants = ['Tomato', 'Cucumber', 'Lettuce', 'Carrot', 'Spinach', 'Onion', 'Eggplant', 'Cabbage'];
   const statuses = ['Healthy', 'Moderate', 'Needs Water', 'Critical'];
-  
+
   return Array.from({ length: rows * columns }, (_, index) => ({
     id: index + 1,
     gridRow: Math.floor(index / columns) + 1,
@@ -52,7 +52,7 @@ function getPlantIcon(plantType) {
     'Potato': '🥔',
     'Strawberry': '🍓',
   };
-  
+
   return icons[plantType] || '🌱';
 }
 
@@ -65,56 +65,76 @@ function getPlotColor(gridItem) {
 
 function App() {
   const [selectedGridItem, setSelectedGridItem] = useState(null);
+  const [isConnected, setIsConnected] = useState(true);
+
+  const handleConnectConsole = () => {
+    console.log("Connecting to console...");
+    // Your logic to open console
+  };
+
 
   return (
-    <div className="min-h-screen bg-gray-50 bg-[url('https://img.freepik.com/free-vector/subtle-rombus-white-gray-pattern-background_1017-25098.jpg')]">
-      <header className="bg-[#2E7D32] text-white p-6 shadow-md">
-        <div className="container mx-auto">
+    <div className="min-h-screen bg-gray-50 bg-[url('assets/bg.jpg')] bg-no-repeat bg-cover bg-center">
+      <header className="flex jusitfy-center gap-4 bg-[#2E7D32] text-white p-6 shadow-md">
+        <img className="h-24 w-24" src="assets/logo.png" alt="Agro Bot Farm Logo" />
+        <div className="container flex flex-col justify-center mx-auto">
           <h1 className="text-3xl font-bold">AgroBot Farm Monitor</h1>
           <p className="mt-2">Real-time IoT-based farm monitoring system</p>
         </div>
+        <button
+          className={`flex items-center justify-center h-[4rem] w-[16rem] my-auto rounded-full border ${isConnected ? 'border-green-400' : 'border-red-400'
+            } ${isConnected ? 'hover:bg-green-600 cursor-pointer' : 'text-gray-100 cursor-not-allowed'}`}
+          disabled={!isConnected}
+          onClick={handleConnectConsole}
+        >
+          <span
+            className={`h-3 w-3 rounded-full mr-2 ${isConnected ? 'bg-green-400' : 'bg-red-400'
+              }`}
+          ></span>
+          Connect Console
+        </button>
       </header>
-      
+
       <main className="container mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row justify-between items-center md:items-center mb-6 gap-4">
           <div>
             <h2 className="text-2xl font-semibold text-gray-800">Farm Grid Overview</h2>
             <p className="text-gray-600">Agricultural Monitoring System</p>
           </div>
-          
+
           <div className="flex flex-wrap gap-4">
             <div className="text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow">
               <span className="block font-medium">Last Updated</span>
               {new Date().toLocaleTimeString()}
             </div>
-            
+
             <div className="text-sm text-gray-600 bg-white px-4 py-2 rounded-md shadow">
               <span className="block font-medium">Grid Size</span>
               {GRID_CONFIG.rows} × {GRID_CONFIG.columns}
             </div>
           </div>
         </div>
-        
+
         <div className="farm-container max-w-4xl mx-auto">
           <div className="farm-grid-wrapper">
             {/* Column Labels */}
             <div className="farm-grid-col-labels">
               {Array.from({ length: GRID_CONFIG.columns }, (_, i) => (
-                <div key={`col-${i+1}`} className="grid-label">Col {i+1}</div>
+                <div key={`col-${i + 1}`} className="grid-label">Col {i + 1}</div>
               ))}
             </div>
-            
+
             <div className="farm-grid-with-row-labels">
               {/* Row Labels */}
               <div className="farm-grid-row-labels">
                 {Array.from({ length: GRID_CONFIG.rows }, (_, i) => (
-                  <div key={`row-${i+1}`} className="grid-label">Row {i+1}</div>
+                  <div key={`row-${i + 1}`} className="grid-label">Row {i + 1}</div>
                 ))}
               </div>
-              
+
               {/* Actual Grid */}
               <div className="farm-grid">
-                <div 
+                <div
                   style={{
                     display: 'grid',
                     gridTemplateColumns: `repeat(${GRID_CONFIG.columns}, 1fr)`,
@@ -124,7 +144,7 @@ function App() {
 
                 >
                   {GRID_DATA.map((gridItem) => (
-                    <div 
+                    <div
                       key={gridItem.id}
                       className={`farm-grid-item ${getPlotColor(gridItem)} flex flex-col cursor-pointer`}
                       onClick={() => setSelectedGridItem(gridItem)}
@@ -139,13 +159,13 @@ function App() {
                           {gridItem.plantStatus}
                         </span>
                       </div>
-                      
+
                       <div className="mt-auto w-full px-2 pb-2">
                         <div className="bg-white rounded-md p-3 w-full shadow-sm">
                           <div className="text-base font-medium text-gray-700 mb-2">
                             {gridItem.plantType}
                           </div>
-                          
+
                           <div className="flex justify-between items-center">
                             <div>
                               <div className="flex items-center">
@@ -156,7 +176,7 @@ function App() {
                               </div>
                               <span className="text-xs text-gray-500">Moisture</span>
                             </div>
-                            
+
                             <div>
                               <div className="flex items-center">
                                 <span className="w-2.5 h-2.5 rounded-full bg-red-300 mr-1.5"></span>
@@ -175,7 +195,7 @@ function App() {
               </div>
             </div>
           </div>
-          
+
           <div className="mt-3 px-2">
             <div className="flex gap-3 flex-wrap">
               <div className="flex items-center gap-1">
@@ -198,7 +218,7 @@ function App() {
           </div>
         </div>
       </main>
-      
+
       {selectedGridItem && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4" onClick={() => setSelectedGridItem(null)}>
           <div className="bg-white rounded-lg p-6 w-full max-w-md" onClick={(e) => e.stopPropagation()}>
@@ -208,7 +228,7 @@ function App() {
                 ✕
               </button>
             </div>
-            
+
             <div className="space-y-4">
               <div className={`p-4 rounded-lg border ${getPlotColor(selectedGridItem)}`}>
                 <div className="flex items-center">
@@ -223,7 +243,7 @@ function App() {
                   </div>
                 </div>
               </div>
-              
+
               <div className="grid grid-cols-2 gap-4">
                 <div className="bg-gray-100 p-4 rounded-lg">
                   <div className="flex items-center mb-1">
@@ -234,7 +254,7 @@ function App() {
                     {selectedGridItem.moisture}%
                   </p>
                 </div>
-                
+
                 <div className="bg-gray-100 p-4 rounded-lg">
                   <div className="flex items-center mb-1">
                     <span className="w-3 h-3 rounded-full bg-red-400 mr-2"></span>
@@ -245,7 +265,7 @@ function App() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="bg-gray-100 p-4 rounded-lg">
                 <span className="text-gray-600 font-medium">Grid Position</span>
                 <div className="flex items-center justify-between">
@@ -254,7 +274,7 @@ function App() {
                   </p>
                 </div>
               </div>
-              
+
               <div className="flex gap-2">
                 <button className="flex-1 bg-agro-green hover:bg-green-700 text-white py-2 rounded-lg transition-colors font-medium">
                   View History
@@ -267,7 +287,7 @@ function App() {
           </div>
         </div>
       )}
-      
+
       <footer className="bg-gray-800 text-white py-4 mt-8">
         <div className="container mx-auto px-4 text-center">
           <p>AgroBot Farm Monitor System &copy; {new Date().getFullYear()}</p>
