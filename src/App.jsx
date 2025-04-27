@@ -88,10 +88,6 @@ function App() {
             }, index * 300);
           });
         }, 500);
-        
-      //lol
-      }else if(cmdLower === 'clickhaku'){
-        response = `Haku is a gay. lolol`;
       } else {
         response = `Unknown command: "${cmd}". Type "help" for available commands.`;
       }

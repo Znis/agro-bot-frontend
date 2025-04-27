@@ -67,16 +67,6 @@ const Console = ({ logs, command, onCommandChange, onCommandSubmit, onClose, onQ
           >
             Help
           </button>
-
-          {/* lol */}
-          <button 
-            className="bg-cyan-600 hover:bg-cyan-700 text-white text-xs px-3 py-1.5 rounded-md font-medium transition-colors"
-            onClick={() => onQuickCommand('clickHaku')}
-          >
-            CLICK HAKU
-          </button>
-
-
         </div>
         
         <div className="flex-1 overflow-y-auto p-4 bg-gray-900 font-mono text-sm">
