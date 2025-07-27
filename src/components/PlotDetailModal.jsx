@@ -61,9 +61,9 @@ const PlotDetailModal = ({ gridItem, onClose }) => {
           </div>
 
           <div className="flex gap-2">
-            <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition-colors font-medium">
+            {/* <button className="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 rounded-lg transition-colors font-medium">
               View History
-            </button>
+            </button> */}
             <button className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-lg transition-colors font-medium">
               Control Water
             </button>

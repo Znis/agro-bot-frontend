@@ -6,7 +6,7 @@ export const GRID_CONFIG = {
 
 // Generate sample grid data based on configuration
 export const generateGridData = (rows, columns) => {
-  const plants = ['Tomato', 'Cucumber', 'Lettuce', 'Carrot', 'Spinach', 'Onion', 'Eggplant', 'Cabbage'];
+  const plants = ['Tomato', 'Cucumber', 'Lettuce', 'Carrot', 'Spinach', 'Onion', 'Eggplant', 'Cabbage', "Bok-choi", "Money Plant"];
   const statuses = ['Healthy', 'Moderate', 'Needs Water', 'Critical'];
 
   return Array.from({ length: rows * columns }, (_, index) => ({
