@@ -1,3 +1,5 @@
+const BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
 // Grid configuration - can be adjusted as needed
 export const GRID_CONFIG = {
   rows: 3,
@@ -69,3 +71,7 @@ export function getCurrentFormattedDate() {
 export function getCurrentFormattedTime() {
   return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit', hour12: true});
 } 
+
+export function getImageURL(filename) {
+  return `${BASE_URL}/image?filename=${filename}`;
+}

@@ -6,12 +6,39 @@ import {
   getCurrentFormattedTime,
 } from "../utils/helpers";
 import { useState, useEffect } from "react";
+import {
+  checkStatus,
+} from "../services/api";
 import { Loader2 } from "lucide-react";
 import { useSoilMoisture } from "../context/soilMoistureContext";
 
 const Dashboard = () => {
-  const { data, fetchingSoilMoisture } = useSoilMoisture();
-  const [lightIntensity, setLightIntensity] = useState(0);
+const { data, fetchingSoilMoisture } = useSoilMoisture();
+let items = [];
+if (data) {
+  Object.entries(data).forEach(([key, value]) => {
+    const item = typeof value === "number"
+      ? { moisture: value, health_status: null, filename: null, confidence_score: null }
+      : value;
+
+    const gridItem = {
+      moisture: item.moisture,
+      health_status: item.health_status,
+      filename: item.filename,
+      prediction_confidence: item.confidence_score,
+      pos: key,
+    };
+
+    items.push(gridItem);
+  });
+}
+
+const healthyCount = items.filter(item => item.health_status?.toLowerCase() === "healthy").length || "-";
+const unhealthyCount = items.filter(item => item.health_status?.toLowerCase() === "unhealthy").length  || "-";
+const emptyCount = items.filter(item => item.health_status?.toLowerCase() === "no any plant").length || "-";
+const thirstyCount = items.filter(item => item.moisture !== null && item.moisture < 60).length  || "-";
+
+const [lightIntensity, setLightIntensity] = useState(0);
   const [online, setOnline] = useState(false);
 
   const statusRequest = async () => {
@@ -164,10 +191,7 @@ const Dashboard = () => {
                   Healthy Plants
                 </span>
                 <span className="text-xl font-bold text-gray-800">
-                  {
-                    GRID_DATA.filter((item) => item.plantStatus === "Healthy")
-                      .length
-                  }
+                   {healthyCount}
                 </span>
               </div>
             </>
@@ -197,13 +221,10 @@ const Dashboard = () => {
               </div>
               <div>
                 <span className="block text-xs text-gray-500 uppercase font-medium">
-                  Critical
+                  Unhealthy
                 </span>
                 <span className="text-xl font-bold text-gray-800">
-                  {
-                    GRID_DATA.filter((item) => item.plantStatus === "Critical")
-                      .length
-                  }
+                   {unhealthyCount}
                 </span>
               </div>
             </>
@@ -241,11 +262,7 @@ const Dashboard = () => {
                   Needs Water
                 </span>
                 <span className="text-xl font-bold text-gray-800">
-                  {
-                    GRID_DATA.filter(
-                      (item) => item.plantStatus === "Needs Water"
-                    ).length
-                  }
+                   {thirstyCount}
                 </span>
               </div>
             </>
@@ -277,10 +294,7 @@ const Dashboard = () => {
                   Empty Plots
                 </span>
                 <span className="text-xl font-bold text-gray-800">
-                  {
-                    GRID_DATA.filter((item) => item.plantStatus === "Moderate")
-                      .length
-                  }
+                   {emptyCount}
                 </span>
               </div>
             </>
