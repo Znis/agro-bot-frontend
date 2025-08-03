@@ -92,8 +92,8 @@ const Header = ({ isConnected, onOpenConsole }) => {
       </div>
       <button
         onClick={() => getSoilMoisture()}
-        className="flex rounded-full gap-2 items-center justify-center p-2 my-auto transition-all duration-300 bg-green-600 hover:bg-green-900 text-white shadow-lg hover:shadow-green-500/30 cursor-pointer disabled:pointer-events-none disabled:pointer-none disabled:bg-gray-600"
-        // disabled={fetchingSoilMoisture || !online}
+        className="flex rounded-full gap-2 items-center justify-center p-2 my-auto transition-all duration-300 bg-green-600 hover:bg-green-900 text-white shadow-lg hover:shadow-green-500/30 cursor-pointer disabled:pointer-events-none disabled:pointer-none disabled:bg-green-800"
+        disabled={fetchingSoilMoisture || !online}
       >
         {fetchingSoilMoisture ? (
           <Loader2 className="animate-spin" />
@@ -103,7 +103,7 @@ const Header = ({ isConnected, onOpenConsole }) => {
       </button>
       <button
         onClick={() => waterPlants()}
-        className="flex rounded-full gap-2 items-center justify-center p-2 my-auto transition-all duration-300 bg-green-600 hover:bg-green-900 text-white shadow-lg hover:shadow-green-500/30 cursor-pointer disabled:pointer-events-none disabled:pointer-none disabled:bg-gray-600"
+        className="flex rounded-full gap-2 items-center justify-center p-2 my-auto transition-all duration-300 bg-green-600 hover:bg-green-900 text-white shadow-lg hover:shadow-green-500/30 cursor-pointer disabled:pointer-events-none disabled:pointer-none disabled:bg-green-800"
         disabled={fetchingSoilMoisture || !online}
       >
         {fetchingSoilMoisture ? (
@@ -114,7 +114,7 @@ const Header = ({ isConnected, onOpenConsole }) => {
       </button>
       <button
         onClick={() => fullMaintenanceCycle()}
-        className="flex rounded-full gap-2 items-center justify-center p-2 my-auto transition-all duration-300 bg-green-600 hover:bg-green-900 text-white shadow-lg hover:shadow-green-500/30 cursor-pointer disabled:pointer-events-none disabled:pointer-none disabled:bg-gray-600"
+        className="flex rounded-full gap-2 items-center justify-center p-2 my-auto transition-all duration-300 bg-green-600 hover:bg-green-900 text-white shadow-lg hover:shadow-green-500/30 cursor-pointer disabled:pointer-events-none disabled:pointer-none disabled:bg-green-800"
         disabled={fetchingSoilMoisture || !online}
       >
         {fetchingSoilMoisture ? (
@@ -127,7 +127,7 @@ const Header = ({ isConnected, onOpenConsole }) => {
         className={`flex items-center justify-center w-[20rem] py-3 px-4 my-auto rounded-lg transition-all duration-200 ${
           online
             ? "bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-green-500/30 cursor-pointer"
-            : "bg-gray-600 text-gray-200 cursor-not-allowed"
+            : "bg-green-800 text-gray-200 cursor-not-allowed"
         }`}
         disabled={!online}
         onClick={onOpenConsole}
