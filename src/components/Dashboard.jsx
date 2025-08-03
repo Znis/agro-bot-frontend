@@ -13,32 +13,32 @@ import { Loader2 } from "lucide-react";
 import { useSoilMoisture } from "../context/soilMoistureContext";
 
 const Dashboard = () => {
-const { data, fetchingSoilMoisture } = useSoilMoisture();
-let items = [];
-if (data) {
-  Object.entries(data).forEach(([key, value]) => {
-    const item = typeof value === "number"
-      ? { moisture: value, health_status: null, filename: null, confidence_score: null }
-      : value;
+  const { data, fetchingSoilMoisture } = useSoilMoisture();
+  let items = [];
+  if (data) {
+    Object.entries(data).forEach(([key, value]) => {
+      const item = typeof value === "number"
+        ? { moisture: value, health_status: null, filename: null, confidence_score: null }
+        : value;
 
-    const gridItem = {
-      moisture: item.moisture,
-      health_status: item.health_status,
-      filename: item.filename,
-      prediction_confidence: item.confidence_score,
-      pos: key,
-    };
+      const gridItem = {
+        moisture: item.moisture,
+        health_status: item.health_status,
+        filename: item.filename,
+        prediction_confidence: item.confidence_score,
+        pos: key,
+      };
 
-    items.push(gridItem);
-  });
-}
+      items.push(gridItem);
+    });
+  }
 
-const healthyCount = items.filter(item => item.health_status?.toLowerCase() === "healthy").length || "-";
-const unhealthyCount = items.filter(item => item.health_status?.toLowerCase() === "unhealthy").length  || "-";
-const emptyCount = items.filter(item => item.health_status?.toLowerCase() === "no any plant").length || "-";
-const thirstyCount = items.filter(item => item.moisture !== null && item.moisture < 60).length  || "-";
+  const healthyCount = items.filter(item => item.health_status?.toLowerCase() === "healthy").length || "-";
+  const unhealthyCount = items.filter(item => item.health_status?.toLowerCase() === "unhealthy").length || "-";
+  const emptyCount = items.filter(item => item.health_status?.toLowerCase() === "no any plant").length || "-";
+  const thirstyCount = items.filter(item => item.moisture !== null && item.moisture < 60).length || "-";
 
-const [lightIntensity, setLightIntensity] = useState(0);
+  const [lightIntensity, setLightIntensity] = useState(0);
   const [online, setOnline] = useState(false);
 
   const statusRequest = async () => {
@@ -191,7 +191,7 @@ const [lightIntensity, setLightIntensity] = useState(0);
                   Healthy Plants
                 </span>
                 <span className="text-xl font-bold text-gray-800">
-                   {healthyCount}
+                  {healthyCount}
                 </span>
               </div>
             </>
@@ -224,7 +224,7 @@ const [lightIntensity, setLightIntensity] = useState(0);
                   Unhealthy
                 </span>
                 <span className="text-xl font-bold text-gray-800">
-                   {unhealthyCount}
+                  {unhealthyCount}
                 </span>
               </div>
             </>
@@ -262,7 +262,7 @@ const [lightIntensity, setLightIntensity] = useState(0);
                   Needs Water
                 </span>
                 <span className="text-xl font-bold text-gray-800">
-                   {thirstyCount}
+                  {thirstyCount}
                 </span>
               </div>
             </>
@@ -294,7 +294,7 @@ const [lightIntensity, setLightIntensity] = useState(0);
                   Empty Plots
                 </span>
                 <span className="text-xl font-bold text-gray-800">
-                   {emptyCount}
+                  {emptyCount}
                 </span>
               </div>
             </>

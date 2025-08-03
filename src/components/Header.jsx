@@ -124,18 +124,16 @@ const Header = ({ isConnected, onOpenConsole }) => {
         )}
       </button>
       <button
-        className={`flex items-center justify-center w-[20rem] py-3 px-4 my-auto rounded-lg transition-all duration-200 ${
-          online
+        className={`flex items-center justify-center w-[20rem] py-3 px-4 my-auto rounded-lg transition-all duration-200 ${online
             ? "bg-green-600 hover:bg-green-700 text-white shadow-lg hover:shadow-green-500/30 cursor-pointer"
             : "bg-green-800 text-gray-200 cursor-not-allowed"
-        }`}
+          }`}
         disabled={!online}
         onClick={onOpenConsole}
       >
         <span
-          className={`h-3 w-3 rounded-full mr-3 ${
-            online ? "bg-green-300 animate-pulse" : "bg-red-400"
-          }`}
+          className={`h-3 w-3 rounded-full mr-3 ${online ? "bg-green-300 animate-pulse" : "bg-red-400"
+            }`}
         ></span>
         <span className="font-medium">
           {online ? "Open Console" : "CNC Offline"}
